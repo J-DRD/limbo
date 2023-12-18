@@ -1,0 +1,62 @@
+name: Build Limbo Android Emulator
+
+on: 
+  workflow_dispatch:
+
+jobs:
+ build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+
+    - name: Set up Android SDK
+      uses: android-actions/setup-android-sdk@v1
+      with:
+        api-levels: '28'
+        build-tools: '28.0.3'
+        emulator-build: '5884184'
+
+    - name: Set up Android NDK
+      uses: android-actions/setup-android-ndk@v1
+      with:
+        version: '21.3.6528147'
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get install -y build-essential cmake git-core pkg-config
+
+    - name: Clone Limbo repository
+      run: |
+        git clone https://github.com/limboemu/limbo.git
+
+    - name: Navigate to Limbo directory
+      run: |
+        cd limbo
+
+    - name: Ensure submodules are up-to-date
+      run: |
+        git submodule update --init --recursive
+
+    - name: Apply patches to QEMU
+      run: |
+        git apply --directory=android-config android-qemu-config.patch
+
+    - name: Configure Android-Limbo-Config.mak
+      run: |
+        # Edit the file and uncomment the required lines
+
+    - name: Build native libraries
+      run: |
+        ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=./src/main/jni/Android.mk APP_STL=c++_shared APP_PLATFORM=android-28 APP_ABI=arm64-v8a,armeabi-v7a,x86_64
+
+    - name: Build APK
+      run: |
+        ./gradlew assembleRelease
