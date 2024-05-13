@@ -52,9 +52,6 @@ SYNC_LIBS=rsync -av --exclude libqemu-system-* ../libs/* ../jniLibs/
 
 LIMBO_PRJ_ROOT=../../../..
 LIMBO_APP_X86=$(LIMBO_PRJ_ROOT)/limbo-android-x86/src/main
-LIMBO_APP_ARM=$(LIMBO_PRJ_ROOT)/limbo-android-arm/src/main
-LIMBO_APP_PPC=$(LIMBO_PRJ_ROOT)/limbo-android-ppc/src/main
-LIMBO_APP_SPARC=$(LIMBO_PRJ_ROOT)/limbo-android-sparc/src/main
 
 SYNC_LIBS_X86=rsync -av --include='libqemu-system-x86*.so' \
     --include='gdbserver' --include='gdb.setup' \
@@ -91,12 +88,6 @@ COPY_RESOLV_CONF=mkdir -p ../assets/roms/etc/ && printf "nameserver 8.8.8.8\n\n"
 
 COPY_ASSETS_X86=mkdir -p ../../../../limbo-android-x86/src/main/assets/ && \
     cp -rf ../assets/* ../../../../limbo-android-x86/src/main/assets/
-COPY_ASSETS_ARM=mkdir -p ../../../../limbo-android-arm/src/main/assets/ && \
-    cp -rf ../assets/* ../../../../limbo-android-arm/src/main/assets/
-COPY_ASSETS_PPC=mkdir -p ../../../../limbo-android-ppc/src/main/assets/ && \
-    cp -rf ../assets/* ../../../../limbo-android-ppc/src/main/assets/
-COPY_ASSETS_SPARC=mkdir -p ../../../../limbo-android-sparc/src/main/assets/ && \
-    cp -rf ../assets/* ../../../../limbo-android-sparc/src/main/assets/
 
 #RENAME_TUNCTL=mv -f $(NDK_PROJECT_PATH)/libs/$(APP_ABI)/tunctl \
 	$(NDK_PROJECT_PATH)/libs/$(APP_ABI)/libtunctl.so
