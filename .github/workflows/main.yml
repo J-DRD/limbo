@@ -21,8 +21,6 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v2
-        with:
-          android-sdk-version: '29'
 
       - name: Install Android NDK
         run: |
@@ -33,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y make autoconf automake git python binutils
+          sudo apt-get install -y make autoconf automake git python3 binutils
           sudo apt-get install -y libtool-bin pkg-config flex bison gettext texinfo rsync
 
       - name: Get and compile external libraries
