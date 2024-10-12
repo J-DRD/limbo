@@ -73,7 +73,8 @@ jobs:
     - name: Build and export APK
       run: |
         #cd ./limbo-android-lib/
-        ./gradlew assembleRelease
+        ./gradlew build
+        ./gradlew assembleDebug
         mkdir -p android/app/build/outputs/apk/release
         cp app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/release/
 
